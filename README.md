@@ -10,7 +10,7 @@ Markdown is a lightweight and easy-to-use syntax for styl ing your writing. It  
 ```markdown  
 Syntax highlighted code bloc k   
        
-# Header 1
+# Header 1 
 ## Header 2       
 ### Header 3         
 - Bulleted1
