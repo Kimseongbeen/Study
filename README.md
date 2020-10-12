@@ -13,7 +13,7 @@ Syntax highlighted code bloc k
 # Header 1 
 ## Header 2        
 ### Header 3         
-- Bulleted1
+- Bulleted1 
 - List 
    
 1. Numbered
