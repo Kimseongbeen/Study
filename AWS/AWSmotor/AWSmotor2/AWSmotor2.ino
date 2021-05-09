@@ -7,8 +7,8 @@
 const char* ssid = "sbk"; // 와이파이 AP, 또는 스마트폰의 핫스판 이름
 const char* password = "00000000";  // 와이파이 AP, 또는 스마트폰의 핫스판 이름
 //const char* mqtt_server = "broker.mqtt-dashboard.com"; //브로커 주소
-const char* thingId = "*.*.*.*"; //EC2 
-const char* host = "";
+const char* thingId = "*.*.*.*"; //EC2 퍼블릭 주소
+const char* host = ""; //사물 상호작용 주소
 const char* outTopic = "/qodj/inTopic"; // 이름이 중복되지 않게 설정 기록
 const char* inTopic = "/qodj/outTopic"; // 이름이 중복되지 않게 설정 기록
 const char* clientName = "";  // setup 함수에서 자동생성
