@@ -69,12 +69,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
   root = doc.as<JsonObject>();
   order = root["order"];
   Duty = root["duty"];
-  
-    if(order==0) // Dialogflow, 구글챗봇-Intents Parameter-order의 정지 값,구글챗봇에게 정지를 말하면 0이 들어오고 initset함수를 실행
+  int a = 8;
+ 
+  if(order==0) // Dialogflow, 구글챗봇-Intents Parameter-order의 정지 값,구글챗봇에게 정지를 말하면 0이 들어오고 initset함수를 실행
     InitSet();                      
        
     //front 110070070110 070110110070
   else if(order==1){         //order==1 dialoglflow/Fulfillment/index.js에 order로 지정해둔 문자가 들어오면 해당  숫자가뜸    
+    volume=a;
     data[0]=110;  
     data[1]=70;  
     data[2]=70;  
@@ -87,6 +89,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   
    //back 100110070070 070070100110
   else if(order==2){
+    volume=a;
     data[0]=100;
     data[1]=110; 
     data[2]=70;
@@ -99,6 +102,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   //right 130040090090 070100090090
   else if(order==3){
+    volume=a;
     data[0]=60;
     data[1]=90; 
     data[2]=120; 
@@ -111,6 +115,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   // left 090090060130 090090110070
   else if(order==4){
+    volume=a;
     data[0]=60; 
     data[1]=90; 
     data[2]=120;  
@@ -123,6 +128,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   
   //dance 090040090140 090140090040
   else if(order==5){
+    volume=a;
     data[0]=90; 
     data[1]=40; 
     data[2]=90;  
@@ -268,6 +274,6 @@ void loop() {
     reconnect();
   }
     client.loop();
-  if(order==1||order==2||order==3)
+  if(order==1||order==2||order==3||order==4||order==5) //order 들어오면 DoArray를 
     DoArray();
 }
