@@ -70,24 +70,67 @@ void callback(char* topic, byte* payload, unsigned int length) {
   order = root["order"];
   Duty = root["duty"];
   
-  if(order==0) // Dialogflow, 구글챗봇-Intents Parameter-order의 정지 값,구글챗봇에게 정지를 말하면 0이 들어오고 initset함수를 실행
-    InitSet();                         
-  else if(order==1){         //order==1 dialoglflow/Fulfillment/index.js에 order로 지정해둔 문자가 들어오면 해당  숫자가뜸
-    Serial.println("==========");
-    volume=8;
-    data[0]=110; data[1]=70;  data[2]=70;  data[3]=110;
-    data[4]=70;  data[5]=110; data[6]=110; data[7]=70;
+    if(order==0) // Dialogflow, 구글챗봇-Intents Parameter-order의 정지 값,구글챗봇에게 정지를 말하면 0이 들어오고 initset함수를 실행
+    InitSet();                      
+       
+    //front 110070070110 070110110070
+  else if(order==1){         //order==1 dialoglflow/Fulfillment/index.js에 order로 지정해둔 문자가 들어오면 해당  숫자가뜸    
+    data[0]=110;  
+    data[1]=70;  
+    data[2]=70;  
+    data[3]=110;
+    data[4]=70;
+    data[5]=110; 
+    data[6]=110; 
+    data[7]=70;
   }
+  
+   //back 100110070070 070070100110
   else if(order==2){
-    volume=8;
-    data[0]=100; data[1]=110;  data[2]=70; data[3]=70;
-    data[4]=70;  data[5]=70; data[6]=100; data[7]=110;
+    data[0]=100;
+    data[1]=110; 
+    data[2]=70;
+    data[3]=70;
+    data[4]=70;
+    data[5]=70; 
+    data[6]=100;
+    data[7]=110;
   }
+
+  //right 130040090090 070100090090
   else if(order==3){
-    iTime=50
-    volume=8;
-    data[0]=60; data[1]=90; data[2]=120;  data[3]=90;a
-    data[4]=120; data[5]=90; data[6]=60; data[7]=90;
+    data[0]=60;
+    data[1]=90; 
+    data[2]=120; 
+    data[3]=90;
+    data[4]=120; 
+    data[5]=90; 
+    data[6]=60; 
+    data[7]=90;
+  }
+
+  // left 090090060130 090090110070
+  else if(order==4){
+    data[0]=60; 
+    data[1]=90; 
+    data[2]=120;  
+    data[3]=90;
+    data[4]=120;
+    data[5]=90; 
+    data[6]=60; 
+    data[7]=90;
+  }
+  
+  //dance 090040090140 090140090040
+  else if(order==5){
+    data[0]=90; 
+    data[1]=40; 
+    data[2]=90;  
+    data[3]=140;
+    data[4]=90;
+    data[5]=140; 
+    data[6]=90; 
+    data[7]=40;
   }
 }
 
