@@ -9,7 +9,7 @@ const {Card, Suggestion} = require('dialogflow-fulfillment');
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
-  databaseURL:'ws://myhome-megr-default-rtdb.firebaseio.com/'
+  databaseURL:'ws://inputyourFBname.firebaseio.com/' //본인의 파이어 베이스주소 입력
 });
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
@@ -82,13 +82,13 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
       orderNo = 5;
     return admin.database().ref('data').set({
       order:orderNo,
-  //    velocity:velocity
+  //    velocity:velocity 속도 조절
     });
   }
   let intentMap = new Map();
   intentMap.set('Default Welcome Intent', welcome);
   intentMap.set('Default Fallback Intent', fallback);
-  intentMap.set('order', handleOrder);
+  intentMap.set('order', handleOrder); //앞에order부분이 parameter부분
   // intentMap.set('your intent name here', yourFunctionHandler);
   // intentMap.set('your intent name here', googleAssistantHandler);
   agent.handleRequest(intentMap);
