@@ -3,10 +3,10 @@
 #include <ESP8266WiFi.h>
 
 //#define FIREBASE_HOST "***.firebaseio.com" //Without http:// or https:// schemes
-#define FIREBASE_HOST "myhome-megr-default-rtdb.firebaseio.com/"
-#define FIREBASE_AUTH "KKedrM4PNj2sK3FO2ITDaVadAw0Rr8IejQ34wjmK"
-#define WIFI_SSID "sbk"
-#define WIFI_PASSWORD "00000000"
+#define FIREBASE_HOST "FB주소.firebaseio.com/"
+#define FIREBASE_AUTH "파이어베이스 시크릿 키"
+#define WIFI_SSID "와이파이 이름"
+#define WIFI_PASSWORD ""
 
 //Define FirebaseESP8266 data object
 FirebaseData firebaseData1;
