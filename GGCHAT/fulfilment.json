@@ -77,7 +77,9 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     //firebase의 data가 바뀌면 밑에값 수정
     return admin.database().ref('data').set({
       // parameter name - order
-      on:onNo, 
+      on:onNo, // on < firebase에서 나타내는 on부분 on: orNo(불켜줘->1, 불꺼줘->0), on:1,on:0(앞에 on부분은 그냥 이름일뿐 아무거나 넣어도 됩니다.)
+     //즉 onNo값이 아두이노 값으로 넘어가야지 작동을 합니다.[firebase에서 수동으로 동작
+     
   //    velocity:velocity
     });
   }
