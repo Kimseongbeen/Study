@@ -36,7 +36,7 @@ void streamCallback(StreamData data)
   printResult(data);
   Serial.println();
   outResult(data); 
-  //밑에 함수로 이동
+  
 }
 
 void streamTimeoutCallback(bool timeout)
