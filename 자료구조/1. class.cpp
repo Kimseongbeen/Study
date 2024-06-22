@@ -18,6 +18,10 @@ private:
     char name[256];
 };
 
+// 구조체와 클래스의 차이
+// 구조체는 디폴트 접근제한 지정자가 public:
+// 클래스는 디폴트 접근제한 지정자가 private
+
 // 사용자 정의 자료형
 int main()
 {
@@ -28,7 +32,11 @@ int main()
     People smileb;
 
     smileb.age = 10;
-
+    smileb.height = 120;
+     // 문자열 복사
+    strcpy(&smileb.name[0], "SeongBeen")
+    strcpy(smileb.name, "SeongBeen")
+    
     cPeople SB;
     SB.age;
 
