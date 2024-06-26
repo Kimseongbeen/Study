@@ -6,6 +6,7 @@ int main()
 {
     printf("test1");
     printf("24-06-26 test");
+    printf("fetch Test");
     return 0;
 }
 
