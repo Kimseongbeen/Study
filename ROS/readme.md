@@ -12,17 +12,22 @@ sudo apt install curl
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc |
 sudo apt-key add -
 ```
-2. Install the desktop full version of ROS Noetic
+2. ROS 설치 - 10분 이상 소요
 ```
 sudo apt update
 sudo apt install ros-noetic-desktop-full
 ```
-3. Configure the environment to use and execute the ROS commands in a terminal
+3. ROS 환경 변수 설정
 ```
 echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
-4. Install the additional components to create and manage ROS applications
+- test
+```
+roscore
+```
+에러 발생하지 않으면 정상적으로 설치 완료로 ctrl + c 로 나가면됨
+4. 라이브러리 설치
 ```
 sudo apt install python3-rosdep python3-rosinstall
 python3-rosinstall-generator python3-wstool build-essential
