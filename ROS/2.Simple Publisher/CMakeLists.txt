@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION X.X.X) # 내 버전에 맞게 수정
+cmake_minimum_required(VERSION 3.0.2) # 본인 버전에 맞게 변경돼있을 것
 project(bumperbot_examples)
 
 find_package(catkin REQUIRED COMPONENTS
@@ -15,7 +15,11 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
 )
 
-# 추가 부분
+# Python 추가 부분
 catkin_install_python(PROGRAMS
   nodes/simple_publisher.py
   DESTINATION ${CATKKIN_PACKAGE_BIN_DESTINATION})
+
+# C++ 추가 부분
+add_executable(simple_cpp_publisher nodes/simple_publisher.cpp)
+target_link_libraries(simple_cpp_publisher ${catkin_LIBRARIES})
