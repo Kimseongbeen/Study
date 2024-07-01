@@ -15,9 +15,11 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
 )
 
+## Publisher & Subscriber
 # Python 추가 부분
 catkin_install_python(PROGRAMS
-  nodes/simple_publisher.py
+  nodes/simple_publisher.py # pub
+  nodes/simple_subscriber.py #sub
   DESTINATION ${CATKKIN_PACKAGE_BIN_DESTINATION})
 
 # C++ 추가 부분

@@ -1,5 +1,6 @@
+# Pubblisher
 # 사용 언어
-## Python
+## Python 
 ### 1. Simple_publisher.py 생성
 코드 참조
 ### 2. CMakeLists.txt 코드 추가
@@ -90,3 +91,48 @@ rostopic hz /smileb
 # 10hz 초당 10개의 메시지 전송
 
 ```
+
+# subscriber
+# 사용 언어
+## Python 
+### 1. Simple_publisher.py 생성
+코드 참조
+### 2. CMakeLists.txt 코드 추가
+
+```
+catkin_install_python(PROGRAMS
+  nodes/simple_publisher.py # pub
+  nodes/simple_subscriber.py #sub
+  DESTINATION ${CATKKIN_PACKAGE_BIN_DESTINATION})
+```
+### 3. 터미널
+#### 노드 실행
+```
+cd bumperbot_ws
+catkin_make
+roscore
+```
+#### 워크스페이스 불러오기
+```
+source devel/setup.bash
+rosrun bumperbot_examples simple_subscriber.py
+```
+
+#### 테스트
+```
+# 설정한 토픽 출력되는지 확인
+rostopic list
+# 해당 토픽의 정보 출력
+rostopic info /smileb
+# 특정 topic에 신호 전송
+# 입력 시 워크스페이스에서 실행하고 있는 subscriber에서 Hi ROS 문자열 수신
+rostopic pub /smileb std_msgs/String "data: 'Hi ROS'"
+```
+
+#### pub 파일 실행
+subscribe 파일이 실행되고 있는 터미널이 아닌 새로운 터미널에서 실행
+cpp_ publisher 송신 값이 subscribe를 실행하고있는 워크스페이스에 수신
+```
+rosrun bumperbot_examples simple_cpp_publisher
+```
+
