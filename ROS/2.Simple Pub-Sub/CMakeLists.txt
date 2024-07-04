@@ -25,3 +25,6 @@ catkin_install_python(PROGRAMS
 # C++ 추가 부분
 add_executable(simple_cpp_publisher nodes/simple_publisher.cpp)
 target_link_libraries(simple_cpp_publisher ${catkin_LIBRARIES})
+
+add_executable(simple_cpp_subscriber nodes/simple_subscriber.cpp)
+target_link_libraries(simple_cpp_subscriber ${catkin_LIBRARIES})
