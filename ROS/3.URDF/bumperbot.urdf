@@ -1,36 +1,123 @@
 <?xml version="1.0"?>
 
+<!-- 
+로봇 구조 요약:
+1. base_footprint: 로봇의 기준점
+2. base_link: 로봇의 주 본체
+3. wheel_right_link: 오른쪽 바퀴
+4. wheel_left_link: 왼쪽 바퀴
+5. caster_front_link: 전방 캐스터 휠
+6. caster_rear_link: 후방 캐스터 휠
+
+조인트 구조:
+- base_joint: base_footprint와 base_link 연결 (고정)
+- wheel_right_joint: base_link와 오른쪽 바퀴 연결 (연속 회전)
+- wheel_left_joint: base_link와 왼쪽 바퀴 연결 (연속 회전)
+- caster_front_joint: base_link와 전방 캐스터 연결 (고정)
+- caster_rear_joint: base_link와 후방 캐스터 연결 (고정)
+
+이 로봇은 두 개의 구동 바퀴와 두 개의 캐스터 휠을 가진 이동 로봇입니다.
+STL 파일을 사용하여 각 부품의 3D 모델을 정의하고 있습니다.
+-->
+
+xmlCopy<?xml version="1.0"?>
+
+<!-- 로봇 정의 시작 -->
 <robot name="bumperbot">
+    <!-- 베이스 발자국 링크 정의 -->
     <link name="base_footprint">
-    // base_link
+    </link>
+
+    <!-- 베이스 링크 정의 -->
     <link name="base_link">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
+                <!-- 베이스 링크의 3D 모델 파일 지정 -->
                 <mesh filename="package://bumperbot_description/meshes/base_link.STL"/>
             </geometry>
         </visual>
     </link>
 
+    <!-- 베이스 발자국과 베이스 링크를 연결하는 고정 조인트 -->
     <joint name="base_joint" type="fixed">
         <parent link="base_footprint"/>
         <child link="base_link"/>
         <origin rpy="0 0 0" xyz="0 0 0.033"/>
     </joint>
 
+    <!-- 오른쪽 바퀴 링크 정의 -->
     <link name="wheel_right_link">
         <visual>
-            <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
             <origin rpy="1.57 0 0" xyz="0 0 0"/>
             <geometry>
+                <!-- 오른쪽 바퀴의 3D 모델 파일 지정 -->
                 <mesh filename="package://bumperbot_description/meshes/wheel_right_link.STL"/>
             </geometry>
         </visual>
     </link>
 
+    <!-- 오른쪽 바퀴 조인트 정의 (연속 회전) -->
     <joint name="wheel_right_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 -0.07 0"/>
         <parent link="base_link"/>
         <child link="wheel_right_link"/>
+        <axis xyz="0 1 0"/>
     </joint>
 
+    <!-- 왼쪽 바퀴 링크 정의 -->
+    <link name="wheel_left_link">
+        <visual>
+            <origin rpy="-1.57 0 0" xyz="0 0 0"/>
+            <geometry>
+                <!-- 왼쪽 바퀴의 3D 모델 파일 지정 -->
+                <mesh filename="package://bumperbot_description/meshes/wheel_left_link.STL"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <!-- 왼쪽 바퀴 조인트 정의 (연속 회전) -->
+    <joint name="wheel_left_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 0.07 0"/>
+        <parent link="base_link"/>
+        <child link="wheel_left_link"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <!-- 전방 캐스터 링크 정의 -->
+    <link name="caster_front_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <!-- 전방 캐스터의 3D 모델 파일 지정 -->
+                <mesh filename="package://bumperbot_description/meshes/caster_front_link.STL"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <!-- 전방 캐스터 조인트 정의 (고정) -->
+    <joint name="caster_front_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.0475 0 -0.0275"/>
+        <parent link="base_link"/>
+        <child link="caster_front_link"/>
+    </joint>   
+
+    <!-- 후방 캐스터 링크 정의 -->
+    <link name="caster_rear_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <!-- 후방 캐스터의 3D 모델 파일 지정 -->
+                <mesh filename="package://bumperbot_description/meshes/caster_rear_link.STL"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <!-- 후방 캐스터 조인트 정의 (고정) -->
+    <joint name="caster_rear_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-0.0475 0 -0.0275"/>
+        <parent link="base_link"/>
+        <child link="caster_rear_link"/>
+    </joint>
 </robot>
+<!-- 로봇 정의 끝 -->
