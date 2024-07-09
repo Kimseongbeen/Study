@@ -17,4 +17,20 @@
         <child link="base_link"/>
         <origin rpy="0 0 0" xyz="0 0 0.033"/>
     </joint>
+
+    <link name="wheel_right_link">
+        <visual>
+            <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+            <origin rpy="1.57 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://bumperbot_description/meshes/wheel_right_link.STL"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="wheel_right_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_right_link"/>
+    </joint>
+
 </robot>
