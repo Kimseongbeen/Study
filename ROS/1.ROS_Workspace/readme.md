@@ -75,3 +75,20 @@ roscd bumperbot_examples
 ![](https://velog.velcdn.com/images/smile_b/post/df1f6237-c819-4b15-acdc-e64dddb527b7/image.png)
 
 이 과정을 따라하면 ROS 워크스페이스를 성공적으로 설정하고 사용할 수 있습니다.
+
+# 개발 환경 세팅
+
+## VSCode 다운로드 및 설치
+1. [Visual Studio Code](https://code.visualstudio.com/)를 다운로드합니다.
+
+## Extension(확장) 설치
+- C++
+- Python
+- CMake
+- CMake Tools
+- XML Tools
+- ROS
+
+## 터미네이터 설치
+1. App Store를 엽니다.
+2. 'terminator (터미네이터)'를 검색하여 설치합니다.
