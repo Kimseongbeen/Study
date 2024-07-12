@@ -1,0 +1,15 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "ros.distro": "noetic",
+    "ros.packagePath": [
+        "/home/vboxuser/bumperbot_ws/src",
+        "/opt/ros/noetic/share"
+    ],
+    // CMake 수정 부분, 시작 시 source devel/setup.bash 자동 실행
+    "cmake.sourceDirectory": "/home/vboxuser/bumperbot_ws/src"
+}
