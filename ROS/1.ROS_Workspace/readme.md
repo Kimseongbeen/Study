@@ -37,27 +37,28 @@ catkin_create_pkg bumperbot_examples roscpp rospy std_msgs
 
 ![](https://velog.velcdn.com/images/smile_b/post/2b48a9b8-35e6-46d7-b6c5-2a2f71b8054a/image.png)
 
-## 5. 워크스페이스 재구축
+## 5. 워크스페이스 재구축 및 활성화
 
-새로 생성한 패키지를 포함하여 워크스페이스를 다시 구축합니다.
+새로 생성한 패키지를 포함하여 워크스페이스를 다시 구축하고 활성화해야 합니다. 이 과정은 반드시 워크스페이스의 최상위 디렉토리(bumperbot_ws)에서 실행해야 합니다.
 
 ```bash
+cd ~/bumperbot_ws
 catkin_make
+source devel/setup.bash
 ```
 
 ![](https://velog.velcdn.com/images/smile_b/post/eb58e666-8514-42a2-9339-74ee0e242255/image.png)
 
-## 6. 워크스페이스 활성화
+'source devel/setup.bash' 명령은 현재 터미널 세션에서만 유효합니다. 새 터미널을 열 때마다 이 명령을 실행해야 해줘야합니다.
 
-```bash
-source devel/setup.bash
-```
+주의할 점은, 새 터미널 세션을 시작할 때마다 워크스페이스를 다시 활성화해야 한다는 것입니다. 'source devel/setup.bash' 명령을 실행해야 roscd 등의 ROS 명령어를 사용할 수 있습니다.
 
 ![](https://velog.velcdn.com/images/smile_b/post/f83c29da-69f7-403a-a077-7b0db04a46c1/image.png)
+워크스페이스 활성화를 종료하려면, 단순히 터미널을 닫거나 새로운 터미널 세션을 시작하면 됩니다.
 
 ![](https://velog.velcdn.com/images/smile_b/post/15f77d06-bda1-48c6-b6cd-fec0878e7af1/image.png)
 
-## 7. ROS 패키지 접근 확인
+## 6. ROS 패키지 접근 확인
 
 워크스페이스가 정상적으로 활성화되면 다음 명령어로 패키지 디렉토리로 이동할 수 있습니다.
 
