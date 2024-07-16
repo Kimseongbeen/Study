@@ -83,3 +83,13 @@ Bumperbot은 두 개의 구동 바퀴와 두 개의 캐스터 휠을 가진 이�
 4. 로봇 정의 종료
 
 이 URDF 파일은 Bumperbot의 전체 구조를 상세히 설명하고 있어, 시뮬레이션이나 실제 로봇 제어에 활용할 수 있습니다.
+
+# 2024-07-17 ~ bumperbot_gazebo.xacro
+cd bumperbot_ws
+source devel/setup.bash
+roslaunch bumperbot_description gazebo.launch
+
+로그 확인
+Loading gazebo_ros_control_plugin
+에러는 무시 - 컨트롤 시스템에 대해 어떤 매개 변수도 지정되지 않았다고 표시한것으로, 설정하지 않으면 기본 매개 변수로 사용된다.
+loaded gazebo_ros_control ROS 컨트롤 라이브러리가 가제보에 로딩됐다는 뜻.

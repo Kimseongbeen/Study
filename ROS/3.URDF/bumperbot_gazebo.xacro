@@ -1,5 +1,28 @@
 <?xml version="1.0"?>
 <robot name="bumperbot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <transmission name="wheel_right_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_right_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_right_motor">
+            <mechanicalReduction>1.0</mechanicalReduction>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
+    <transmission name="wheel_left_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_left_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_left_motor">
+            <mechanicalReduction>1.0</mechanicalReduction>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
     <gazebo reference="wheel_right_link">
         <!-- 바퀴의 미끄러짐을 방지하기 위해 마찰 계수를 매우 높게 설정 -->
         <mu1>100000000000000.0</mu1>
@@ -52,5 +75,12 @@
         <minDepth>0.001</minDepth>
         <maxVel>0.1</maxVel>
         <fdirl>1 0 0</fdirl>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+            <legacyModeNS>true</legacyModeNS>
+        </plugin>
     </gazebo>
 </robot>
