@@ -1,5 +1,5 @@
 
-# ROS Launch 파일을 사용한 로봇 모델 시각화
+# ROS Launch 파일을 사용한 로봇 모델 시각화 (~2024-07-17)
 
 이 실습에서는 ROS launch 파일을 사용하여 로봇의 URDF 모델을 RViz에서 시각화하는 과정을 설명합니다.
 
@@ -57,3 +57,35 @@ $(find bumperbot_description): bumperbot_description 패키지의 경로를 찾�
 - 노드들은 실행 순서에 관계없이 올바르게 작동하도록 설계되어야 합니다.
 
 이 방법을 사용하면 로봇 모델 시각화 과정이 크게 간소화되며, 한 번의 명령으로 모든 필요한 구성 요소를 시작할 수 있습니다.
+
+# 시뮬레이션 런치 파일 (2024-07-18~)
+
+BumperBot 로봇의 Gazebo 시뮬레이션을 실행하기 위한 단계:
+
+1. 워크스페이스로 이동:
+   ```
+   cd bumperbot_ws
+   ```
+
+2. 워크스페이스 설정 파일 소스:
+   ```
+   source devel/setup.bash
+   ```
+
+3. Gazebo 시뮬레이션 런치:
+   ```
+   roslaunch bumperbot_description gazebo.launch
+   ```
+
+실행 시 출력되는 `model` 및 `world` 관련 정보:
+- 이는 `gazebo.launch` 파일에서 정의된 두 개의 인자(argument) 때문입니다.
+- `model`: 시뮬레이션에 사용될 로봇 모델 파일을 지정합니다.
+- `world`: Gazebo 시뮬레이션 환경(월드)을 지정합니다.
+
+이 런치 파일은 다음 작업을 수행합니다:
+1. XACRO 파일을 URDF로 변환하여 로봇 모델을 로드합니다.
+2. Gazebo 시뮬레이터를 시작합니다.
+3. 지정된 월드(기본값: empty_world)에서 시뮬레이션을 시작합니다.
+4. 로봇 모델을 Gazebo 환경에 스폰(생성)합니다.
+
+이 과정을 통해 빈 Gazebo 환경에 BumperBot 로봇 모델이 나타나며, 시뮬레이션이 시작됩니다. 이 시뮬레이션 환경은 향후 로봇의 새로운 기능과 패키지를 테스트하는 데 중요한 도구로 사용될 것입니다.

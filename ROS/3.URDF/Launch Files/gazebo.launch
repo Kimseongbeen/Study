@@ -1,0 +1,44 @@
+<!-- 2024-07-17 -->
+<launch>
+    <!-- 로봇 모델 파일 경로 설정 -->
+    <arg name="model" default="$(find bumperbot_description)/urdf/bumperbot.urdf.xacro"/>
+    <!-- 사용할 Gazebo 월드 설정 -->
+    <arg name="world" default="empty_world"/>
+    
+    <!-- 로봇 설명 파라미터 설정 (URDF/XACRO 파일을 파싱하여 설정) -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
+    <!-- 
+    name="robot_description": ROS 파라미터 서버에 저장될 파라미터 이름
+    command="...": 실행할 명령어
+    $(find xacro)/xacro: xacro 패키지의 xacro 실행 파일 위치
+    inorder: XACRO 파일을 순서대로 처리 (이전 버전과의 호환성을 위해 사용)
+    $(arg model): 앞서 정의한 model 인자 값 (XACRO 파일 경로) 
+    -->
+
+    <!-- Gazebo 월드 실행 -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!-- Gazebo 시뮬레이션 설정 -->
+        <arg name="paused" value="false"/>          <!-- 시뮬레이션 시작 시 일시 정지 여부 -->
+        <arg name="use_sim_time" value="true"/>     <!-- 시뮬레이션 시간 사용 여부 -->
+        <arg name="gui" value="true"/>              <!-- Gazebo GUI 사용 여부 -->
+        <arg name="headless" value="false"/>        <!-- 헤드리스 모드 사용 여부 -->
+        <arg name="debug" value="false"/>           <!-- 디버그 모드 사용 여부 -->
+        <arg name="world_name" value="$(arg world)"/> <!-- 사용할 월드 파일 지정 -->
+    </include>
+
+    <!-- 로봇 모델을 Gazebo에 스폰 -->
+    <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false" 
+          args="-unpause -urdf -model robot -param robot_description"/>
+    <!-- 
+    name="spawn_model": 노드의 이름
+    pkg="gazebo_ros": 사용할 패키지 이름
+    type="spawn_model": 실행할 노드 타입
+    output="screen": 노드의 출력을 화면에 표시
+    respawn="false": 노드가 종료되어도 재시작하지 않음
+    args: 노드에 전달할 인자들
+        -unpause: 스폰 후 시뮬레이션을 시작 (일시정지 해제)
+        -urdf: URDF 형식의 모델을 사용함을 지정
+        -model robot: Gazebo에서 사용할 모델 이름을 'robot'으로 설정
+        -param robot_description: 'robot_description' 파라미터에서 모델 정보를 가져옴
+    -->
+</launch>
