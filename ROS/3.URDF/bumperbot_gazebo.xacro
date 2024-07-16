@@ -1,24 +1,38 @@
 <?xml version="1.0"?>
 <robot name="bumperbot" xmlns:xacro="http://ros.org/wiki/xacro">
 
+    <!-- 오른쪽 바퀴 트랜스미션 정의 -->
     <transmission name="wheel_right_transmission">
+        <!-- 단순 트랜스미션 타입 사용 -->
         <type>transmission_interface/SimpleTransmission</type>
+        <!-- 오른쪽 바퀴 조인트 설정 -->
         <joint name="wheel_right_joint">
+            <!-- 속도 제어 인터페이스 사용 -->
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
+        <!-- 오른쪽 바퀴 모터 액추에이터 설정 -->
         <actuator name="wheel_right_motor">
+            <!-- 기어 비율 (1:1) -->
             <mechanicalReduction>1.0</mechanicalReduction>
+            <!-- 속도 제어 인터페이스 사용 -->
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </actuator>
     </transmission>
 
+    <!-- 왼쪽 바퀴 트랜스미션 정의 -->
     <transmission name="wheel_left_transmission">
+        <!-- 단순 트랜스미션 타입 사용 -->
         <type>transmission_interface/SimpleTransmission</type>
+        <!-- 왼쪽 바퀴 조인트 설정 -->
         <joint name="wheel_left_joint">
+            <!-- 속도 제어 인터페이스 사용 -->
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
+        <!-- 왼쪽 바퀴 모터 액추에이터 설정 -->
         <actuator name="wheel_left_motor">
+            <!-- 기어 비율 (1:1) -->
             <mechanicalReduction>1.0</mechanicalReduction>
+            <!-- 속도 제어 인터페이스 사용 -->
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </actuator>
     </transmission>
