@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
 <!-- 
+2024 - 07 - 16
 로봇 구조 요약:
 1. base_footprint: 로봇의 기준점
 2. base_link: 로봇의 주 본체

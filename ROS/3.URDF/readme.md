@@ -1,3 +1,18 @@
+# 24-07-17 +) 파일 설명
+1. bumperbot.urdf
+- 현황: 2024-07-16까지 개발된 기본 URDF 모델
+- 문제점: Gazebo 시뮬레이션에 필요한 물리적 정보 부족
+- 개선 필요: 물리 속성 및 힘 시뮬레이션을 위한 추가 정보 요구됨
+
+2. bumperbot.urdf.xacro
+
+- 목적: URDF 모델의 확장 및 개선
+- 특징: Xacro를 사용하여 모듈화 및 유연성 증가
+- 주요 변경사항:
+충돌(collision) 태그 추가
+관성(inertial) 정보 포함
+Gazebo 전용 속성을 별도 파일로 분리 (bumperbot_gazebo.xacro)
+
 # URDF와 Bumperbot 로봇 설명
 
 ## URDF (Unified Robot Description Format)
