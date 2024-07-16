@@ -84,12 +84,42 @@ Bumperbot은 두 개의 구동 바퀴와 두 개의 캐스터 휠을 가진 이�
 
 이 URDF 파일은 Bumperbot의 전체 구조를 상세히 설명하고 있어, 시뮬레이션이나 실제 로봇 제어에 활용할 수 있습니다.
 
-# 2024-07-17 ~ bumperbot_gazebo.xacro
-cd bumperbot_ws
-source devel/setup.bash
-roslaunch bumperbot_description gazebo.launch
+# BumperBot Gazebo 시뮬레이션 실행 (2024-07-17~)
 
-로그 확인
+## 실행 단계
+1. 워크스페이스로 이동:
+   ```
+   cd bumperbot_ws
+   ```
+
+2. 환경 설정:
+   ```
+   source devel/setup.bash
+   ```
+
+3. 시뮬레이션 실행:
+   ```
+   roslaunch bumperbot_description gazebo.launch
+   ```
+
+## 로그 분석
+
+### 주요 로그 메시지
+```
 Loading gazebo_ros_control_plugin
-에러는 무시 - 컨트롤 시스템에 대해 어떤 매개 변수도 지정되지 않았다고 표시한것으로, 설정하지 않으면 기본 매개 변수로 사용된다.
-loaded gazebo_ros_control ROS 컨트롤 라이브러리가 가제보에 로딩됐다는 뜻.
+```
+
+### 에러 메시지 (무시 가능)
+컨트롤 시스템에 대한 매개변수가 지정되지 않았다는 메시지가 표시될 수 있습니다. 이는 정상이며, 지정하지 않으면 기본 매개변수가 사용됩니다.
+
+### 중요 로그
+```
+loaded gazebo_ros_control
+```
+이는 ROS 컨트롤 라이브러리가 Gazebo에 성공적으로 로드되었음을 나타냅니다.
+
+## 참고사항
+- 이 시뮬레이션 설정은 `bumperbot_gazebo.xacro` 파일에 정의된 속성들을 사용합니다.
+- 에러 메시지는 대부분 무시해도 되지만, 심각한 문제가 발생하면 추가 조치가 필요할 수 있습니다.
+
+이 설정을 통해 Gazebo에서 BumperBot 로봇의 시뮬레이션이 성공적으로 실행되며, 향후 개발 및 테스트에 활용될 수 있습니다.
