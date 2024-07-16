@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot name="bumperbot" xmlns:xacro="http://ros.org/wiki/xacro">
+    <gazebo reference="wheel_right_link">
+        <!-- 바퀴의 미끄러짐을 방지하기 위해 마찰 계수를 매우 높게 설정 -->
+        <mu1>100000000000000.0</mu1>
+        <mu2>100000000000000.0</mu2>
+        
+        <!-- kp: 바퀴 제어의 반응성을 높이기 위해 큰 값 설정 -->
+        <kp>1000000000000.0</kp>
+        <!-- kd: 바퀴가 원하는 속도에 도달한 후 일정 속도를 유지하도록 설정 -->
+        <kd>10</kd>
+        
+        <!-- 시뮬레이션 솔버의 정확도를 위해 최소 접촉 깊이 설정 -->
+        <minDepth>0.001</minDepth>
+        <!-- 바퀴의 최대 속도 제한 -->
+        <maxVel>0.1</maxVel>
+        <!-- 바퀴의 회전 방향 설정 (x축 방향) -->
+        <fdir1>1 0 0</fdir1>
+    </gazebo>
+
+    <gazebo reference="wheel_left_link">
+        <mu1>100000000000000.0</mu1>
+        <mu2>100000000000000.0</mu2>
+        <kp>1000000000000.0</kp>
+        <kd>10</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>0.1</maxVel>
+        <fdirl>1 0 0</fdirl>
+    </gazebo>
+
+    <gazebo reference="caster_front_link">
+        <!-- 캐스터 휠의 부드러운 움직임을 위해 낮은 마찰 계수 설정 -->
+        <mu1>0.1</mu1>
+        <mu2>0.1</mu2>
+        
+        <!-- 캐스터의 반응성을 적당히 유지하면서 안정성 확보 -->
+        <kp>1000000.0</kp>
+        <!-- 캐스터의 움직임을 더 부드럽게 만들기 위해 kd 값 증가 -->
+        <kd>100</kd>
+        
+        <!-- 다른 설정들은 구동 바퀴와 동일하게 유지 -->
+        <minDepth>0.001</minDepth>
+        <maxVel>0.1</maxVel>
+        <fdir1>1 0 0</fdir1>
+    </gazebo>
+
+    <gazebo reference="caster_rear_link">
+        <mu1>0.1</mu1>
+        <mu2>0.1</mu2>
+        <kp>1000000.0</kp>
+        <kd>100</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>0.1</maxVel>
+        <fdirl>1 0 0</fdirl>
+    </gazebo>
+</robot>
