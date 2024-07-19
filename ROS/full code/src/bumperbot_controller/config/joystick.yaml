@@ -1,0 +1,16 @@
+teleop:
+  move:
+    type: topic
+    message_type: geometry_msgs/Twist
+    topic_name: bumperbot_controller/cmd_vel
+    axis_mappings:
+      -
+        axis: 0  # 왼쪽 스틱 앞뒤 (Xbox 컨트롤러 기준)
+        target: linear.x
+        scale: 0.5  # 속도를 조절하기 위해 스케일을 0.5로 설정
+      -
+        axis: 1  # 오른쪽 스틱 좌우 (Xbox 컨트롤러 기준)
+        target: angular.z
+        scale: 0.5  # 회전 속도를 조절하기 위해 스케일을 0.5로 설정
+
+  enable_button: 0  # -1로 설정하여 항상 제어 가능하도록 설정

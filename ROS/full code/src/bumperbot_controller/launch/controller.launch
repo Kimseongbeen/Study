@@ -1,0 +1,47 @@
+<launch>
+      <!-- 로봇 바퀴 반경 설정 -->
+      <arg name="wheel_radius" default="0.033"/>
+      <!-- 로봇 바퀴 간 거리 설정 -->
+      <arg name="wheel_separation" default="0.17"/>
+      <!-- Python 사용 여부 설정 -->
+      <arg name="use_python" default="false"/>
+      <!-- Python 사용 시 파일 확장자 설정 -->
+      <arg name="py_suffix" value=".py" if="$(arg use_python)"/>
+      <arg name="py_suffix" value="" unless="$(arg use_python)"/>
+      <!-- 단순 컨트롤러 사용 여부 설정 -->
+      <arg name="is_simple" default="true"/>
+    
+      <!-- joint_state_controller 설정 로드 -->
+      <rosparam file="$(find joint_state_controller)/joint_state_controller.yaml" command="load"/>
+    
+      <!-- 관절 상태를 TF 변환으로 변환 (rviz 등에서 사용) -->
+      <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+            respawn="false" output="screen"/>
+    
+      <!-- 단순 컨트롤러 사용 시 -->
+      <group if="$(arg is_simple)">
+        <!-- 단순 컨트롤러 설정 로드 -->
+        <rosparam file="$(find bumperbot_controller)/config/simple_controller.yaml" command="load"/>
+    
+        <!-- 컨트롤러 매니저를 바퀴 컨트롤러와 함께 실행 -->
+        <node name="controller_manager" pkg="controller_manager" type="spawner"
+              respawn="false" output="screen" args="joint_state_controller wheel_left_controller wheel_right_controller" />
+    
+        <!-- 단순 컨트롤러 노드 실행 -->
+        <node name="simple_controller_node" pkg="bumperbot_controller" type="simple_controller_node$(arg py_suffix)"
+              output="screen" respawn="true">
+          <param name="wheel_radius" value="$(arg wheel_radius)"/>
+          <param name="wheel_separation" value="$(arg wheel_separation)"/>
+        </node>
+      </group>
+    
+      <!-- diff_drive_controller 사용 시 -->
+      <group unless="$(arg is_simple)">
+        <!-- diff_drive_controller 설정 로드 -->
+        <rosparam file="$(find bumperbot_controller)/config/diff_drive_controller.yaml" command="load"/>
+    
+        <!-- 컨트롤러 매니저를 바퀴 컨트롤러와 함께 실행 -->
+        <node name="controller_manager" pkg="controller_manager" type="spawner"
+              respawn="false" output="screen" args="joint_state_controller bumperbot_controller" />
+      </group>
+    </launch>
