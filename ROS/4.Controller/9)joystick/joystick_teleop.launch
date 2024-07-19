@@ -1,14 +1,16 @@
 <launch>
+  <!-- joystick.yaml 파일을 로드하여 파라미터 서버에 저장 -->
+  <rosparam command="load" file="$(find bumperbot_controller)/config/joystick.yaml" />
   
-    <!-- joystick.yaml 파일을 로드하여 파라미터 서버에 저장 -->
-    <rosparam file="$(find bumperbot_controller)/config/joystick.yaml" command="load" />
-    
-    <!-- joy_teleop 노드 실행: 조이스틱 입력을 로봇 명령으로 변환 -->
-    <node pkg="joy_teleop" type="joy_teleop.py" name="joy_teleop"/>
+  <!-- teleop_twist_joy 노드 실행 -->
+  <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy" output="screen">
+    <remap from="cmd_vel" to="bumperbot_controller/cmd_vel"/>
+  </node>
   
-    <!-- joy_node 실행: 조이스틱 하드웨어와 직접 통신 -->
-    <node pkg="joy" type="joy_node" name="joystick">
-      <param name="autorepeat_rate" value="20" />  <!-- 초당 20회 입력 반복 -->
-    </node>
-  
+  <!-- joy_node 실행: 조이스틱 하드웨어와 직접 통신 -->
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="dev" value="/dev/input/js2" />
+    <param name="deadzone" value="0.1" />
+    <param name="autorepeat_rate" value="120" />
+  </node>
 </launch>
