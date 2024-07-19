@@ -2,6 +2,18 @@
 
 이 프로젝트는 ROS를 사용하여 조이스틱으로 Bumperbot 로봇을 제어하는 시스템을 구현합니다.
 
+## joystick 세팅
+공식 가이드 : http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick
+테스트 : https://hardwaretester.com/gamepad
+teleop_twist_joy' 패키지가 설치
+sudo apt-get install ros-noetic-teleop-twist-joy
+
+ls /dev/input/
+
+sudo jstest /dev/input/jsX
+
+ls -l /dev/input/jsX
+
 ## 설정
 
 1. 조이스틱을 USB 또는 블루투스로 연결합니다.
@@ -9,14 +21,28 @@
 
 ## 실행 방법
 
+수정 후 패키지 빌드
+
+cd ~/bumperbot_ws
+catkin_make
+source devel/setup.bash
+
 1. Gazebo 시뮬레이션 실행:
+
 roslaunch bumperbot_description gazebo.launch
 
 2. 로봇 제어 시스템 실행:
+
 roslaunch bumperbot_controller controller.launch
 
 3. 조이스틱 텔레오퍼레이션 노드 실행:
+
 roslaunch bumperbot_controller joystick_teleop.launch
+
+모니터링 
+
+rostopic echo /bumperbot_controller/cmd_vel
+
 
 ## 파일 설명
 
