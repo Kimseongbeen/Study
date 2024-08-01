@@ -4,20 +4,17 @@ from ament_index_python.packages import get_package_share_directory
 import os
 
 def generate_launch_description():
-    # 패키지 이름
     pkg_description = get_package_share_directory('robotic_arms_control')
-    # urdf 파일 이름 설정
     urdf_file = os.path.join(pkg_description, "urdf", 'arms.urdf')
 
-    # Read the URDF file
     with open(urdf_file, 'r') as file:
         urdf_content = file.read()
-        
+
     joint_state_publisher_node = Node(
-            package="joint_state_publisher_gui",
-            executable="joint_state_publisher_gui",
-            name="JSP",
-            output="screen",
+        package="joint_state_publisher_gui",
+        executable="joint_state_publisher_gui",
+        name="JSP",
+        output="screen",
     )
 
     robot_state_publisher_node = Node(
@@ -36,6 +33,7 @@ def generate_launch_description():
 
     # Return the LaunchDescription
     return LaunchDescription([
+        joint_state_publisher_node,
         robot_state_publisher_node,
         rviz_node
     ])

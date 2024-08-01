@@ -1,7 +1,18 @@
 
 # ROS2 로봇 팔 패키지 만들기
+extension
+ROS2
+Python
+
+sudo apt-get update
+sudo apt-get install ros-humble-joint-state-publisher-gui
 
 ## 1. 패키지 구조 생성
+터미널 rarmrarm_ws 실행
+
+```
+cd ~/Rarm_ws && source /opt/ros/humble/setup.bash && source install/setup.bash
+```
 
 1. 새 ROS2 패키지를 생성합니다.
 2. 패키지 내에 다음 디렉토리를 만듭니다:
