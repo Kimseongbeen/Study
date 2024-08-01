@@ -13,7 +13,7 @@
 
 1. `urdf` 디렉토리에 `arms.urdf` 파일을 생성합니다.
 2. URDF 파일에 로봇 구조를 정의합니다:
-   - arms_guide1.urdf 내용 붙여 넣기
+   - arms.urdf 내용 붙여 넣기
    
 
 ## 3. 빌드 및 실행
