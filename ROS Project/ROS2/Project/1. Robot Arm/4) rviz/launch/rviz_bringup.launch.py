@@ -12,6 +12,13 @@ def generate_launch_description():
     # Read the URDF file
     with open(urdf_file, 'r') as file:
         urdf_content = file.read()
+        
+    joint_state_publisher_node = Node(
+            package="joint_state_publisher_gui",
+            executable="joint_state_publisher_gui",
+            name="JSP",
+            output="screen",
+    )
 
     robot_state_publisher_node = Node(
         package="robot_state_publisher",
