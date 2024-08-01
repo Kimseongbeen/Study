@@ -1,5 +1,7 @@
 # ROS 2 Humble 설치 가이드
 
+https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
+
 ROS 2 Humble은 2027년까지 지원되는 현재의 장기 지원 버전(LTS)입니다. 이 가이드는 설치 과정과 각 단계의 목적을 설명합니다.
 
 ## 사전 요구사항
@@ -27,6 +29,26 @@ export LANG=en_US.UTF-8
 locale  # 설정 확인
 ```
 목적: 시스템의 언어 및 지역 설정을 영어(미국)로 설정합니다. 이는 ROS 2가 예상대로 작동하고 오류 메시지를 올바르게 표시하도록 보장합니다.
+
+```bash
+sudo apt install software-properties-common
+sudo add-apt-repository universe
+```
+
+
+```bash
+sudo apt update && sudo apt install curl -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+```
+
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+```
+
+```bash
+sudo apt update
+sudo apt upgrade
+```
 
 2. ROS 2 Humble Desktop (전체 버전) 설치:
 
