@@ -57,9 +57,17 @@
    ```
    colcon build --event-handlers desktop_notification- status- --cmake-args -DCMAKE_BUILD_TYPE=Release
    ```
+   빌드는 20분 소요
 
 10. 환경 설정:
     ```
     echo "source ~/ws_moveit/install/setup.bash" >> ~/.bashrc
     source ~/.bashrc
     ```
+
+11. 설치
+
+```
+git clone https://github.com/moveit/moveit_task_constructor.git -b ros2
+```
+
