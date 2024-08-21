@@ -36,3 +36,8 @@ pip install flask
 pip install flask-ask-sdk
 pip install ask-sdk
 ```
+
+
+```
+rosdep install --from-paths src --ignore-src -r -y
+```
