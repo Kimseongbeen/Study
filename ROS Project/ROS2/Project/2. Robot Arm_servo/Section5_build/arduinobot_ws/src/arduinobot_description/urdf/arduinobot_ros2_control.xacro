@@ -24,6 +24,7 @@
         <!-- ros2_control Real Robot -->
         <xacro:unless value="$(arg is_sim)">
             <hardware>
+            <!-- ttyACM0, ttyUSB0 -->
                 <plugin>arduinobot_controller/ArduinobotInterface</plugin>
                 <param name="port">/dev/ttyACM0</param>
             </hardware>

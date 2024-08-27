@@ -41,3 +41,13 @@ pip install ask-sdk
 ```
 rosdep install --from-paths src --ignore-src -r -y
 ```
+
+실행
+
+```
+ros2 launch arduinobot_bringup real_robot.launch.py
+```
+
+파일
+
+remote - Alexa
