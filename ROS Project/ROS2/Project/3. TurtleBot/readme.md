@@ -73,6 +73,13 @@ SUBSYSTEM=="input", KERNEL=="event*", GROUP="raspberry", MODE="0660"
 ## 4. Arduino IDE 설치
 
 ```bash
+```
+
+```bash
+cd Downloads
+ls
+chmod +x arduino...
+
 # 필요한 패키지 설치
 sudo add-apt-repository universe
 sudo apt install libfuse2
@@ -86,6 +93,10 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"
 
 # brltty 제거 (시리얼 포트 충돌 방지)
 sudo apt remove brltty
+
+# 실행
+./arduino-ide_2.3.2_Linux_64bit.AppImage
+
 ```
 
 **설명**: 이 단계에서는 Arduino IDE 사용을 위한 설정을 합니다. 필요한 패키지를 설치하고, Arduino 보드를 인식할 수 있도록 udev 규칙을 추가합니다. brltty를 제거하여 시리얼 포트 충돌을 방지합니다.
