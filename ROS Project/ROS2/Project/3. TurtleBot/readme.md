@@ -3,6 +3,14 @@
 ## 1. Raspberry Pi OS 설치
 
 1. [Raspberry Pi 공식 웹사이트](https://www.raspberrypi.com/software/)에서 Ubuntu용 Raspberry Pi Imager를 다운로드합니다.
+
+주의! Ubuntu software 에서 다운로드 시 에러 발생(구버전)
+
+.deb 파일 다운로드 후 
+```bash
+cd Downloads
+sudo apt install ./rpi-imager_1.8.5_amd64.deb
+```
 2. Imager를 실행하고 다음과 같이 설정합니다:
    - CHOOSE OS > Other general-purpose OS > Ubuntu > 22.04.4 LTS(64-bit)
    - SSH 활성화
