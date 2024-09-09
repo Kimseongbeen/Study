@@ -92,6 +92,9 @@ scp -r src/ raspberry@raspberry:/home/raspberry/bumperbot_ws
 라즈베리 파이에서:
 
 ```bash
+sudo apt install --only-upgrade linux-raspi
+sudo reboot
+
 cd bumperbot_ws
 sudo rosdep init
 rosdep update
