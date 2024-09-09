@@ -50,7 +50,7 @@ sudo apt upgrade
 sudo apt install ros-humble-desktop
 sudo apt install ros-dev-tools
 
-source /opt/ros/humble/setup.bash
+echo "source /opt/ros/humble/setup.bash" >> .bashrc
 ```
 
 이 단계에서 ROS 2 Humble과 개발 도구를 설치하고, ROS 2 환경을 활성화합니다.
