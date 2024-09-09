@@ -5,9 +5,11 @@
 ## 1. SSH 연결
 
 먼저 라즈베리 파이에 SSH로 연결합니다:
+나와있는 test는 https://www.youtube.com/watch?v=foqVHERvxpc 에서 
+sudo nano /etc/hosts 에서 설정했던 test입니다.
 
 ```bash
-ssh raspberry@raspberry
+ssh raspberry@test
 ```
 
 ## 2. ROS 2 Humble 설치
