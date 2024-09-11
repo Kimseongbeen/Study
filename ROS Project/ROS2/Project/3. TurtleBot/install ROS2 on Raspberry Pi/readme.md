@@ -121,3 +121,57 @@ colcon build --parallel-workers 2
 - 문제가 발생할 경우, 로그를 확인하고 필요에 따라 추가 의존성을 설치하세요.
 
 이 가이드를 따라 설정하면 라즈베리 파이에서 ROS 2 프로젝트를 실행할 준비가 완료됩니다.
+
+
+
+# Pub/Sub Node with Arduino
+
+ROS2와 Arduino를 사용하여 LED를 제어하는 시스템입니다.
+
+## 설정 및 실행
+
+1. 워크스페이스로 이동하고 설정 스크립트를 소스합니다:
+
+   ```bash
+   cd bumperbot_ws
+   source install/setup.bash
+   ```
+
+2. 시리얼 통신 노드를 실행합니다:
+   ```bash
+   ros2 run bumperbot_firmware simple_serial_transmitter --ros-args -p port:=/dev/ttyUSB0
+   
+   ros2 run bumperbot_firmware simple_serial_receiver --ros-args -p port:=/dev/ttyUSB0   
+   ```
+   주의: `/dev/ttyUSB0`는 사용자의 시스템에 따라 다를 수 있습니다. 실제 Arduino가 연결된 포트로 변경하세요.
+
+## 사용법
+
+1. 사용 가능한 토픽 확인:
+   ```bash
+   ros2 topic list
+   ```
+   `/serial_transmitter` 토픽이 목록에 표시되어야 합니다. OR
+   `/serial_receiver` 
+
+2. LED 켜기:
+   LED를 켜려면 '0'이 아닌 값을 보냅니다.
+   ```bash
+   ros2 topic pub /serial_transmitter std_msgs/msg/String "data: '1'"
+   ```
+
+3. LED 끄기:
+   LED를 끄려면 '0' 값을 보냅니다.
+   ```bash
+   ros2 topic pub /serial_transmitter std_msgs/msg/String "data: '0'"
+   ```
+
+## 주의사항
+
+- Arduino 코드가 올바르게 업로드되어 있는지 확인하세요.
+- 시리얼 포트 설정(예: /dev/ttyUSB0)이 올바른지 확인하세요.
+- ROS2 환경이 제대로 설정되어 있는지 확인하세요.
+
+```
+
+이 README는 사용자가 프로젝트를 쉽게 설정하고 실행할 수 있도록 필요한 모든 단계를 제공합니다. 프로젝트의 구조나 의존성 등 추가적인 정보가 있다면 README에 포함시키는 것이 좋습니다.
