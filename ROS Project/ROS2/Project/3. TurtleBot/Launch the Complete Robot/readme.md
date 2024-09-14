@@ -1,0 +1,3 @@
+colcon build
+
+bumperbot_bringup

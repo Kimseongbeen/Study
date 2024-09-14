@@ -1,76 +1,95 @@
 controller_manager:
   ros__parameters:
-    update_rate: 100 # Hz
-
-    bumperbot_controller:
-      type: diff_drive_controller/DiffDriveController
+    update_rate: 100  # Hz
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    simple_velocity_controller:
-      type: velocity_controllers/JointGroupVelocityController
+    bumperbot_base_controller:
+      type: diff_drive_controller/DiffDriveController
 
-
-bumperbot_controller:
+bumperbot_base_controller:
   ros__parameters:
-    type        : diff_drive_controller/DiffDriveController
-    use_stamped_vel: true
-    left_wheel_names  : ['wheel_left_joint']
-    right_wheel_names : ['wheel_right_joint']
+    left_wheel_names: ["left_wheel_joint"]
+    right_wheel_names: ["right_wheel_joint"]
 
-    publish_rate: 50.0               # default: 50
-    pose_covariance_diagonal : [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
-    twist_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
+    wheel_separation: 0.20
+    wheel_radius: 0.033
 
-    wheel_separation : 0.17
-    wheel_radius : 0.033
+    use_stamped_vel: false
 
-    wheel_separation_multiplier: 1.0
-    left_wheel_radius_multiplier: 1.0
-    right_wheel_radius_multiplier: 1.0
+    # Open loop control (no encoder feedback)
+    open_loop: true
 
-    # Velocity commands timeout [s], default 0.5
-    cmd_vel_timeout: 0.5
+    # Reduced gains for open loop control
+    gains:
+      left_wheel_joint: {p: 0.5, i: 0.0, d: 0.0}
+      right_wheel_joint: {p: 0.5, i: 0.0, d: 0.0}
 
-    # Base frame_id
-    base_frame_id: base_footprint #default: base_link
-
-    # Publish limited velocity
-    publish_limited_velocity: true
-
-    # Publish wheel data
-    publish_wheel_data: true
-
-    # Publish to TF directly or not
+    # Publish estimated odom to tf
     enable_odom_tf: true
+
+    base_frame_id: base_footprint
+    odom_frame_id: odom
+
+    pose_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 0.03]
+    twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 0.03]
 
     # Velocity and acceleration limits
     # Whenever a min_* is unspecified, default to -max_*
     linear:
       x:
-        has_velocity_limits    : true
-        max_velocity           : 0.7  # m/s
-        min_velocity           : -0.7 # m/s
+        has_velocity_limits: true
+        max_velocity: 0.5 # m/s
         has_acceleration_limits: true
-        max_acceleration       : 0.7  # m/s^2
-        min_acceleration       : -0.7 # m/s^2
-        has_jerk_limits        : false
-        max_jerk               : 5.0  # m/s^3
+        max_acceleration: 1.0 # m/s^2
     angular:
       z:
-        has_velocity_limits    : true
-        max_velocity           : 8.5  # rad/s
-        min_velocity           : -8.5  # rad/s
+        has_velocity_limits: true
+        max_velocity: 1.0 # rad/s
         has_acceleration_limits: true
-        max_acceleration       : 5.0  # rad/s^2
-        min_acceleration       : -5.0   # rad/s^2
-        has_jerk_limits        : false
-        max_jerk               : 2.5  # rad/s^3
+        max_acceleration: 2.0 # rad/s^2
 
+    # If true, consider low-level wheel commands as velocity commands (default: false)
+    # Multiplied by the wheel radius to get linear velocity command
+    velocity_command_input: true
 
-simple_velocity_controller:
-  ros__parameters:
-    joints:
-      - wheel_left_joint
-      - wheel_right_joint
+    # If true, publish the control loop execution time (default: false)
+    publish_rate: true
+
+    # Wheel separation and radius multipliers
+    wheel_separation_multiplier: 1.0
+    left_wheel_radius_multiplier: 1.0
+    right_wheel_radius_multiplier: 1.0
+
+    # Feedback type
+    position_feedback: false
+    velocity_feedback: false
+
+    # Controller timeout [s]
+    # If no new command is received within this timeout, the controller stops the robot
+    cmd_vel_timeout: 0.5
+
+    # If true, publishes the interpolated value from the latest odometry to the current time
+    publish_limited_velocity: false
+
+    # Number of velocity steps to interpolate
+    velocity_rolling_window_size: 10
+
+    # Frame to use for velocity commands
+    cmd_vel_in_odom_frame: false
+
+    # If true, allows the controller to continue operating without odometry updates
+    allow_no_odom: true
+
+    # Topic to subscribe for robot velocity commands
+    cmd_vel_topic: /cmd_vel
+
+    # Topic to publish odometry messages
+    odom_topic: /odom
+
+    # Whether to reset odometry on startup
+    reset_on_startup: true
+
+    # Use local parameter server for parameter updates
+    use_local_params: true
