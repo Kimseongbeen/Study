@@ -11,10 +11,6 @@ void setup() {
   pinMode(L298N_in1, OUTPUT);
   pinMode(L298N_in2, OUTPUT);
   
-  // Set Motor Rotation Direction
-  digitalWrite(L298N_in1, HIGH);
-  digitalWrite(L298N_in2, LOW);
-
   Serial.begin(115200); // 시리얼 통신 시작 (115200 baud)
 }
 
