@@ -11,6 +11,9 @@
 
 ## 하드웨어 설정
 
+![](https://velog.velcdn.com/images/smile_b/post/499e17e2-00d2-4105-9ece-3e59b4a0d847/image.png)
+
+
 1. MPU6050을 라즈베리 파이에 연결:
    - VCC를 5V에 연결
    - GND를 GND에 연결
