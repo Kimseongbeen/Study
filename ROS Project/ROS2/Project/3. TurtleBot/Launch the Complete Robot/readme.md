@@ -1,3 +1,4 @@
 colcon build
 
-bumperbot_bringup
+ros2 launch bumperbot_bringup real_robot.launch.py
+
