@@ -65,6 +65,7 @@ export ROS_DOMAIN_ID=1
 ```bash
 echo "export ROS_DOMAIN_ID=1" >> ~/.bashrc
 source ~/.bashrc
+echo $ROS_DOMAIN_ID
 ```
 
 ### 도메인 ID 제거:
