@@ -35,6 +35,8 @@
 3. ROS 2 패키지를 라즈베리 파이로 복사:
    ```
    scp -r <src_폴더_경로> raspberry@<라즈베리_파이_IP>:~/bumperbot_ws/
+
+   scp /home/smileb/bumperbot_ws/src/bumperbot_firmware/bumperbot_firmware/mpu6050_driver.py raspberry@test:/home/raspberry/bumperbot_ws/src/bumperbot_firmware/bumperbot_firmware/mpu6050_driver.py
    ```
 
 4. SMBus 라이브러리 설치:
