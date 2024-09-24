@@ -1,28 +1,4 @@
 /*
-코드 순서 및 구조 설명:
-
-1. 필요한 라이브러리 및 헤더 파일 포함
-2. 상수 및 매크로 정의 (채널, 해상도, TFT 설정 등)
-3. 전역 변수 및 객체 선언
-4. tft_output 함수 정의 (TFT 디스플레이 출력용)
-5. setup 함수:
-   - 시리얼 통신 초기화
-   - TFT 디스플레이 설정
-   - 카메라 및 비디오 스트림 설정
-   - 객체 감지 모델 설정
-   - StreamIO 설정
-6. loop 함수:
-   - 카메라에서 이미지 캡처
-   - JPEG 이미지를 TFT에 표시
-   - 객체 감지 수행
-   - 감지된 객체에 대한 경계 상자 및 레이블 표시
-7. intoText 함수: TFT에 초기 텍스트 표시
-
-이 코드는 Realtek Ameba 보드에서 Tiny YOLO v7을 사용하여
-실시간 객체 감지를 수행하고 결과를 TFT 디스플레이에 표시합니다.
-*/
-
-/*
 [1] 보드
     > Realtek Ameba 보드(32-bit Arm v8M) 
     > 버전: 4.0.7
@@ -88,6 +64,8 @@ void setup() {
   tft.setRotation(1);
   intoText();
 
+  //
+  delay(5000);
   TJpgDec.setJpgScale(1);
   TJpgDec.setCallback(tft_output);
 
@@ -160,18 +138,18 @@ unsigned long intoText() {
   tft.setCursor(0, 30);
   tft.setForeground(ILI9341_GREEN);
   tft.setFontSize(3);
-  tft.println(">ThatProject<");
+  tft.println("On-Device-Project");
   tft.println();
   tft.setForeground(ILI9341_WHITE);
   tft.setFontSize(4);
   tft.println("Tiny Yolo v7");
   tft.setForeground(ILI9341_YELLOW);
   tft.setFontSize(2);
-  tft.println("사전 훈련된 항목: 80");
+  tft.println("Pre-trained items: 80");
   tft.println();
   tft.println();
   tft.setForeground(ILI9341_LIGHTGREY);
   tft.setFontSize(1);
-  tft.println("Tiny YOLO 버전 7은 대량의 메모리와 하드웨어 성능이 필요하지 않지만 일부 감지 정확도를 잃습니다.");
+  tft.println("Thanks");
   return 0;
 }
