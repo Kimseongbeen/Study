@@ -66,7 +66,7 @@
 ### 2. 소스 코드 로드
 
 - src 폴더에서 데모 소스 코드 가져오기
-- Arduino IDE에서 src/Standalone_Object_Detector_v1 열기
+- Arduino IDE에서 src/Object_Detector 열기
 
 ## 라이선스
 
