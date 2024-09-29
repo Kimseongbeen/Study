@@ -13,3 +13,5 @@ ubuntu 계정 및 패스워드 설정하기
 
 Powershell에서 ubuntu가 설치되어 있는지 확인하기
 wsl -l -v
+
+wsl --set-default-version 2
