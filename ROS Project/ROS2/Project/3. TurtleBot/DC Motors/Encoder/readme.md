@@ -61,14 +61,17 @@ right_wheel_meas_vel = rpm * 0.10472;
 # 컴파일 
 
 ```
-# 터미널 1: Serial Transceiver 노드 실행
+# 터미널 1: Serial simple_serial_transmitter 노드 실행
 cd bumperbot_ws/
 . install/setup.bash
-ros2 run bumperbot_firmware serial_transceiver --ros-args -p port:=/dev/ttyUSB0
+ros2 run bumperbot_firmware simple_serial_transmitter --ros-args -p port:=/dev/ttyUSB0
+
+ros2 run bumperbot_firmware simple_serial_receiver --ros-args -p port:=/dev/ttyUSB0
 
 # 터미널 2: Receiver 토픽 모니터링
 ros2 topic list
 ros2 topic echo /serial_receiver
+ros2 topic echo /serial_transmitter
 
 # 터미널 3: Transmitter 토픽으로 데이터 전송
 # 정방향 회전 (속도: 100)
