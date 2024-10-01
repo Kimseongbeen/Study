@@ -56,3 +56,28 @@ right_wheel_meas_vel = rpm * 0.10472;
 - **라디안/초 계산**: RPM 값을 각속도로 변환하여 모터의 회전 속도를 라디안/초로 출력합니다.
 
 이 계산식은 모터의 기어비와 엔코더 해상도를 기반으로 정확한 속도를 추정하는 데 사용됩니다.
+
+
+# 컴파일 
+
+```
+# 터미널 1: Serial Transceiver 노드 실행
+cd bumperbot_ws/
+. install/setup.bash
+ros2 run bumperbot_firmware serial_transceiver --ros-args -p port:=/dev/ttyUSB0
+
+# 터미널 2: Receiver 토픽 모니터링
+ros2 topic list
+ros2 topic echo /serial_receiver
+
+# 터미널 3: Transmitter 토픽으로 데이터 전송
+# 정방향 회전 (속도: 100)
+ros2 topic pub /serial_transmitter std_msgs/String "data: '100'"
+
+# 역방향 회전 (속도: 100)
+ros2 topic pub /serial_transmitter std_msgs/String "data: '-100'"
+
+# 정지
+ros2 topic pub /serial_transmitter std_msgs/String "data: '0'"
+
+```
