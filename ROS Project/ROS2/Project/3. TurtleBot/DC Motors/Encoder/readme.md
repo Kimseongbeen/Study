@@ -10,6 +10,9 @@
 ## 사양
 ![모터 사양](./image.png)
 
+## 인코더
+![alt text](image-2.png)
+
 사양 출처 
 https://abra-electronics.com/electromechanical/motors/gear-motors/metal-gearmotors/jga25-370-series/jga25-370-12v60-e-12vdc-60-rpm-dc-gear-motor-with-magnetic-encoder-clone.html
 
