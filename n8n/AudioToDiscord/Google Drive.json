@@ -1,0 +1,536 @@
+{
+    "name": "My workflow 2",
+    "nodes": [
+      {
+        "parameters": {
+          "content": "## AI Agent\n요약을 통해 추출한 내용들을 가지고 인터넷에 해야할것들을 하나씩 찾아주는 것",
+          "height": 229.03442905060058,
+          "width": 374.62927597730464,
+          "color": 5
+        },
+        "id": "ae69ec6c-8911-4967-aeb1-8432a46e9fcb",
+        "name": "Sticky Note",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          1080,
+          320
+        ]
+      },
+      {
+        "parameters": {
+          "toolDescription": "=Search Google using SerpAPI",
+          "url": "https://serpapi.com/search",
+          "sendQuery": true,
+          "parametersQuery": {
+            "values": [
+              {
+                "name": "api_key",
+                "valueProvider": "fieldValue",
+                "value": "serpapi 키 입력"
+              },
+              {
+                "name": "q"
+              }
+            ]
+          }
+        },
+        "id": "1ba04d43-f62d-4ea9-8aa0-6037b91567df",
+        "name": "HTTP Request",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "typeVersion": 1.1,
+        "position": [
+          1220,
+          680
+        ]
+      },
+      {
+        "parameters": {
+          "authentication": "webhook",
+          "content": "=😎 회의 내용\n\n {{ $json.response.text }}\n\n👍 관련 Youtube 영상\n\n1️⃣ {{ $json.output[0].title }}\n  {{ $json.output[0].url }}\n\n2️⃣ {{ $json.output[1].title }}\n{{ $json.output[1].url }}\n\n3️⃣ {{ $json.output[2].title }}\n{{ $json.output[2].url }}",
+          "options": {}
+        },
+        "id": "24823615-3cde-430b-b097-72bf1fa8f28b",
+        "name": "디스코드 전송",
+        "type": "n8n-nodes-base.discord",
+        "typeVersion": 2,
+        "position": [
+          1600,
+          160
+        ],
+        "credentials": {
+          "discordWebhookApi": {
+            "id": "3ytc6770LRtjNfTZ",
+            "name": "Discord Webhook account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "model": "gpt-4o-2024-08-06",
+          "options": {}
+        },
+        "id": "94caae92-7e05-479f-84f2-1e5cde821801",
+        "name": "OpenAI Chat Model",
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "typeVersion": 1,
+        "position": [
+          1100,
+          680
+        ],
+        "credentials": {
+          "openAiApi": {
+            "id": "oVhMDtuOl6GmPP6p",
+            "name": "OpenAi account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "model": "gpt-4o-2024-08-06",
+          "options": {
+            "temperature": 0.2,
+            "timeout": 10000
+          }
+        },
+        "id": "9aaa7b9d-d153-45a9-8803-70fdb8c801ec",
+        "name": "OpenAI Chat Model1",
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "typeVersion": 1,
+        "position": [
+          740,
+          680
+        ],
+        "credentials": {
+          "openAiApi": {
+            "id": "oVhMDtuOl6GmPP6p",
+            "name": "OpenAi account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsonSchemaExample": "[\n{\n\t\"title\": \"Youtube Title\",\n\t\"url\": \"https://youtube.com\"\n},\n  {\n\t\"title\": \"Youtube Title\",\n\t\"url\": \"https://youtube.com\"\n  },\n  {\n\t\"title\": \"Youtube Title\",\n\t\"url\": \"https://youtube.com\"\n}\n]\n"
+        },
+        "id": "915f9760-f1a3-497c-96e6-b742b0897114",
+        "name": "Structured Output Parser",
+        "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+        "typeVersion": 1.2,
+        "position": [
+          1360,
+          680
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## Google Drive\n\n이 예에서는 Google 드라이브를 사용하고 있습니다.\n오디오 파일이 업로드되는 즉시 트리거가 시작되어 오디오 파일이 다운로드됩니다.",
+          "height": 425.9351190986499,
+          "width": 560.9663444875257
+        },
+        "id": "87e5156b-bf20-4e36-bf06-fbb01d7da6e2",
+        "name": "Sticky Note3",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -60,
+          40
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "pollTimes": {
+            "item": [
+              {
+                "mode": "everyMinute"
+              }
+            ]
+          },
+          "triggerOn": "specificFolder",
+          "folderToWatch": {
+            "__rl": true,
+            "mode": "list",
+            "value": ""
+          },
+          "event": "fileUpdated",
+          "options": {}
+        },
+        "id": "d947f4dd-baca-4937-98e4-3933bcd7ea9b",
+        "name": "Google Drive Trigger",
+        "type": "n8n-nodes-base.googleDriveTrigger",
+        "position": [
+          -20,
+          180
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "content": "## Summarization Chain\n내용 요약",
+          "height": 229.03442905060058,
+          "width": 374.62927597730464,
+          "color": 4
+        },
+        "id": "6451f6dc-f221-477a-a134-19fa98a36e61",
+        "name": "Sticky Note1",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          640,
+          40
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## Information Extractor\nAI Agent 가 Google search API를 통해 구글링을 할 때 모든 텍스트를 검색 할 수 있으므로 나눈다.",
+          "height": 229.03442905060058,
+          "width": 383.3926198783395,
+          "color": 5
+        },
+        "id": "f826d0d1-8433-4a30-ba85-4497a070f8e3",
+        "name": "Sticky Note5",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          651,
+          320
+        ]
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "=태그와 검색어를 기반으로 구글에서 관련 Youtube 영상을 검색해서 관련도 순으로 3개만 url를 나열해줘. 단, 검색은 딱 한번만 하고 영어로 검색해.\n\n태그:  {{ $json.output.tags }}\n검색어: {{ $json.output.search_terms }}",
+          "hasOutputParser": true,
+          "options": {}
+        },
+        "id": "fc818fe5-1d39-49d3-be21-1076cb1d6e1d",
+        "name": "AI Agent",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 1.6,
+        "position": [
+          1120,
+          420
+        ]
+      },
+      {
+        "parameters": {
+          "operation": "download",
+          "fileId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "={{ $json.id }}"
+          },
+          "options": {
+            "binaryPropertyName": "data",
+            "fileName": "={{ $json.originalFilename }}"
+          }
+        },
+        "id": "a174e65f-f4c8-4d84-978c-c7168874d502",
+        "name": "Google Drive",
+        "type": "n8n-nodes-base.googleDrive",
+        "position": [
+          120,
+          180
+        ],
+        "typeVersion": 3,
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "2cHuENSwNHnFYqDO",
+            "name": "Google Drive account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "text": "={{ $json.text }}",
+          "attributes": {
+            "attributes": [
+              {
+                "name": "tags",
+                "description": "Tags that can be fetched from the transcript",
+                "required": true
+              },
+              {
+                "name": "search_terms",
+                "description": "The multiple search terms that can be used for  searching related contents",
+                "required": true
+              }
+            ]
+          },
+          "options": {
+            "systemPromptTemplate": "You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value."
+          }
+        },
+        "id": "f575f9b8-b273-4689-bdb1-f4b301f4ddd8",
+        "name": "Information Extractor",
+        "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+        "typeVersion": 1,
+        "position": [
+          700,
+          420
+        ]
+      },
+      {
+        "parameters": {
+          "operation": "move",
+          "fileId": {
+            "__rl": true,
+            "value": "={{ $('Google Drive').item.json.id }}",
+            "mode": "id"
+          },
+          "driveId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "My Drive"
+          },
+          "folderId": {
+            "__rl": true,
+            "value": "1TDjnkWNw-5A2C3hqWpjwH9MiMI-jKiWA",
+            "mode": "list",
+            "cachedResultName": "처리한 오디오",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1TDjnkWNw-5A2C3hqWpjwH9MiMI-jKiWA"
+          }
+        },
+        "id": "dcf03abe-f79e-4373-9c2a-57381e67cc28",
+        "name": "Google Drive1",
+        "type": "n8n-nodes-base.googleDrive",
+        "position": [
+          420,
+          560
+        ],
+        "typeVersion": 3,
+        "alwaysOutputData": false,
+        "executeOnce": false,
+        "retryOnFail": false,
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "2cHuENSwNHnFYqDO",
+            "name": "Google Drive account"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.openai.com/v1/audio/transcriptions",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {open ai key}"
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "multipart-form-data",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "model",
+                "value": "whisper-1"
+              },
+              {
+                "parameterType": "formBinaryData",
+                "name": "file",
+                "inputDataFieldName": "data"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "name": "Whisper2",
+        "type": "n8n-nodes-base.httpRequest",
+        "position": [
+          260,
+          180
+        ],
+        "id": "f59f0ea7-98cd-4228-9e6a-d430c16b84f2"
+      },
+      {
+        "parameters": {
+          "mode": "combine",
+          "combineBy": "combineByPosition",
+          "options": {}
+        },
+        "id": "43d096a2-563e-4fed-b0d3-c1bee3ff4e85",
+        "name": "Merge",
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3,
+        "position": [
+          1400,
+          160
+        ],
+        "alwaysOutputData": false
+      },
+      {
+        "parameters": {
+          "options": {
+            "summarizationMethodAndPrompts": {
+              "values": {
+                "prompt": "Write a concise summary of the following in korean:\n\n\n\"{text}\"\n\n\nCONCISE SUMMARY:\n\n아래와 같은 형식으로 요약해줘\n1. 회의 내용 요약\n2. 회의록을 기반으로 완료한 내용, 해야할 항목들 나열"
+              }
+            }
+          }
+        },
+        "id": "c94f1967-80f8-479d-9197-991ccb6d9591",
+        "name": "Summarization Chain",
+        "type": "@n8n/n8n-nodes-langchain.chainSummarization",
+        "typeVersion": 2,
+        "position": [
+          700,
+          140
+        ]
+      }
+    ],
+    "pinData": {},
+    "connections": {
+      "HTTP Request": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "OpenAI Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Summarization Chain",
+              "type": "ai_languageModel",
+              "index": 0
+            },
+            {
+              "node": "AI Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "OpenAI Chat Model1": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Information Extractor",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Structured Output Parser": {
+        "ai_outputParser": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_outputParser",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Drive Trigger": {
+        "main": [
+          [
+            {
+              "node": "Google Drive",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Google Drive": {
+        "main": [
+          [
+            {
+              "node": "Whisper2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Information Extractor": {
+        "main": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Whisper2": {
+        "main": [
+          [
+            {
+              "node": "Information Extractor",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Summarization Chain",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Google Drive1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge": {
+        "main": [
+          [
+            {
+              "node": "디스코드 전송",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Summarization Chain": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "versionId": "aa83a9dd-f5e8-45df-b794-c6f4d12f9271",
+    "meta": {
+      "templateCredsSetupCompleted": true,
+      "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+    },
+    "id": "VgdenH1GjGvvoEio",
+    "tags": []
+  }
