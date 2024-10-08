@@ -92,6 +92,13 @@ docker-compose build --no-cache
 docker-compose up -d
 ```
 
+빌드 에러
+```bash
+docker-compose down --remove-orphans
+docker system prune -a
+docker-compose build --no-cache
+```
+
 ## 사용 방법
 
 1. **m4a 파일 업로드**: `shared/input` 폴더에 변환할 m4a 파일을 업로드합니다.
@@ -119,5 +126,3 @@ rm /data/shared/output/output.mp3
 이 과정을 통해 m4a 파일을 mp3로 변환하고, 변환된 파일을 관리할 수 있습니다.
 ```
 
-### 요약
-이 파일은 m4a 파일을 mp3로 변환하기 위한 설정 과정과 각 단계에서 필요한 명령어들을 설명합니다. **Docker**를 사용하여 환경을 설정하고, 파일 변환 및 파일 삭제 방법도 포함되어 있습니다.
