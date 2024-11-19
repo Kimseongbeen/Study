@@ -1,0 +1,146 @@
+{
+    "name": "My workflow 4",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "e15128ff-974a-45d2-9d66-29926456645d",
+        "name": "When clicking ‘Test workflow’",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          460,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "topic": "n8n/relay/control",
+          "options": {}
+        },
+        "id": "2cfd7e55-125c-4f9b-b735-775a882bb74c",
+        "name": "MQTT",
+        "type": "n8n-nodes-base.mqtt",
+        "typeVersion": 1,
+        "position": [
+          660,
+          300
+        ],
+        "credentials": {
+          "mqtt": {
+            "id": "P2JYK8DfRjnekNGZ",
+            "name": "MQTT account 2"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "topics": "n8n/relay/status",
+          "options": {}
+        },
+        "id": "f053b76d-05ff-4d8c-9561-315ad5442359",
+        "name": "MQTT Trigger",
+        "type": "n8n-nodes-base.mqttTrigger",
+        "typeVersion": 1,
+        "position": [
+          460,
+          520
+        ],
+        "credentials": {
+          "mqtt": {
+            "id": "P2JYK8DfRjnekNGZ",
+            "name": "MQTT account 2"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "try {\n    // message 문자열을 JSON으로 파싱\n    const data = JSON.parse(items[0].json.message);\n    \n    const result = {\n        relays: data.outputs.map((state, index) => ({\n            number: index,\n            state: state\n        })),\n        inputs: data.inputs.map((state, index) => ({\n            number: index,\n            state: state\n        }))\n    };\n\n    return {\n        json: result\n    };\n\n} catch (error) {\n    console.log('Error parsing message:', error.message);\n    return {\n        json: {\n            error: error.message,\n            relays: Array(4).fill().map((_, i) => ({ number: i, state: false })),\n            inputs: Array(4).fill().map((_, i) => ({ number: i, state: false }))\n        }\n    };\n}"
+        },
+        "id": "18e6257e-554a-414c-9bc8-8714565c4329",
+        "name": "Code",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          620,
+          520
+        ]
+      },
+      {
+        "parameters": {
+          "authentication": "webhook",
+          "content": "=😎출력(릴레이)\n0번 : {{ $json.relays[0].state }}1번 : {{ $json.relays[1].state }}2번 : {{ $json.relays[2].state }}3번 : {{ $json.relays[3].state }}\n\n😎입력(스위치)\n0번 : {{ $json.inputs[0].state }}1번 : {{ $json.inputs[1].state }}2번 : {{ $json.inputs[2].state }}3번 : {{ $json.inputs[3].state }}",
+          "options": {}
+        },
+        "id": "2d1958f4-e13f-431c-b3ff-6b6161158887",
+        "name": "Discord",
+        "type": "n8n-nodes-base.discord",
+        "typeVersion": 2,
+        "position": [
+          760,
+          520
+        ],
+        "credentials": {
+          "discordWebhookApi": {
+            "id": "maLOAq60BAs6KQtU",
+            "name": "Discord Webhook account"
+          }
+        }
+      }
+    ],
+    "pinData": {
+      "When clicking ‘Test workflow’": [
+        {
+          "json": {
+            "relay": 1,
+            "state": false
+          }
+        }
+      ]
+    },
+    "connections": {
+      "When clicking ‘Test workflow’": {
+        "main": [
+          [
+            {
+              "node": "MQTT",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "MQTT Trigger": {
+        "main": [
+          [
+            {
+              "node": "Code",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code": {
+        "main": [
+          [
+            {
+              "node": "Discord",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": true,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "versionId": "1854d879-970d-4312-a948-ef092b3c7399",
+    "meta": {
+      "templateCredsSetupCompleted": true,
+      "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+    },
+    "id": "2Vn4HZ656QGeBA54",
+    "tags": []
+  }
