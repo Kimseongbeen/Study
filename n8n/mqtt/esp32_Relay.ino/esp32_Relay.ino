@@ -137,7 +137,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
         Serial.print(relay);
         Serial.println(state ? " 켜짐" : " 꺼짐");
         
-        sendStatus();
       }
     }
     // 모든 릴레이 제어
@@ -148,7 +147,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
         relayStates[i] = state;
       }
       Serial.println(state ? "모든 릴레이 켜짐" : "모든 릴레이 꺼짐");
-      sendStatus();
+     
     }
   }
 }
