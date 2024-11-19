@@ -3,8 +3,8 @@
 #include <ArduinoJson.h>
 
 // WiFi 설정
-const char* ssid = "U+Net141D";        // 와이파이 이름
-const char* password = "316D5D81M@";     // 와이파이 비밀번호
+const char* ssid = "";        // 와이파이 이름
+const char* password = "";     // 와이파이 비밀번호
 
 // MQTT 설정
 const char* mqtt_server = "test.mosquitto.org";
