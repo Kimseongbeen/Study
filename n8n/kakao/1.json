@@ -1,0 +1,220 @@
+{
+    "nodes": [
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://kauth.kakao.com/oauth/token",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Content-Type",
+                "value": "application/x-www-form-urlencoded;charset=utf-8"
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "form-urlencoded",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "grant_type",
+                "value": "authorization_code"
+              },
+              {
+                "name": "client_id",
+                "value": "9a5ef246207529552ae5a9fd74a06d28"
+              },
+              {
+                "name": "redirect_uri",
+                "value": "http://localhost:5678"
+              },
+              {
+                "name": "code",
+                "value": "mseiA4M3KjlAysT8eE1CkEHNeDGq7ofS6207529552ae5a9"
+              }
+              // 시크릿 키 - 선택, 이유 -
+              // ,
+              // {
+              //   "name": "client_secret",
+              //   "value": "mseiA4M3KjlAysT8eE1CkEHNeDGq7ofS"
+              // }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -440,
+          -140
+        ],
+        "id": "6503006e-47eb-484f-a5c1-bb4ab874afa6",
+        "name": "얻은 인증 코드로 n8n 노드 설정"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://kapi.kakao.com/v2/api/talk/memo/default/send",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Authorization",
+                "value": "=Bearer {{ $json.access_token }}"
+              },
+              {
+                "name": "Content-Type",
+                "value": "Content-Type: application/x-www-form-urlencoded;charset=utf-8"
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "form-urlencoded",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "template_object",
+                "value": "={\"object_type\":\"text\",\"text\":\"{{ $json.refresh_token }}\",\"link\":{\"web_url\":\"https://developers.kakao.com\",\"mobile_web_url\":\"https://developers.kakao.com\"}}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -80,
+          -140
+        ],
+        "id": "74b25ef4-8681-4c44-8934-e51be8b10de4",
+        "name": "메시지 전송을 위한 HTTP Request"
+      },
+      {
+        "parameters": {
+          "url": "https://kauth.kakao.com/oauth/authorize",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "client_id",
+                "value": "5f006770c340b7e51a0d38439dc30f91"
+              },
+              {
+                "name": "redirect_uri",
+                "value": "http://localhost:5678"
+              },
+              {
+                "name": "response_type",
+                "value": "code"
+              },
+              {
+                "name": "scope",
+                "value": "talk_message"
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "multipart-form-data",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "template_object",
+                "value": "{\"object_type\":\"text\",\"text\":\"Google 뉴스: drone\"}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -700,
+          -140
+        ],
+        "id": "90cc3ebe-ee1f-4c26-ae89-e3fcca7659c6",
+        "name": "카카오톡 인증 요청"
+      },
+      {
+        "parameters": {
+          "content": "1.인가 코드 받기\nhttps://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#request-code",
+          "height": 320
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -760,
+          -280
+        ],
+        "id": "bc9fbf39-7dd2-442f-852a-88aa48bd5b7c",
+        "name": "Sticky Note"
+      },
+      {
+        "parameters": {
+          "content": "https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#request-token-request-header",
+          "height": 80
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -760,
+          -380
+        ],
+        "id": "132c01b0-efd3-4057-986b-7c4d37e6b3dc",
+        "name": "Sticky Note1"
+      },
+      {
+        "parameters": {
+          "content": "\n2.토큰 받기\n1번에서 발급 받은 code는 한번 사용하고 나서 재사용 X\n\n매번 새로운 테스트를 할 때마다 새로운 인증 코드가 필요하다.\n",
+          "height": 320,
+          "color": 3
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -500,
+          -280
+        ],
+        "id": "3441678f-4f70-4e3b-b782-5e2ad91ee2eb",
+        "name": "Sticky Note2"
+      },
+      {
+        "parameters": {
+          "content": "3.카카오톡 나에게 보내기\n\nhttps://developers.kakao.com/docs/latest/ko/message/rest-api#default-template-msg\n\n{\"object_type\":\"text\",\"text\":\"테스트 메시지입니다.\",\"link\":{\"web_url\":\"https://developers.kakao.com\",\"mobile_web_url\":\"https://developers.kakao.com\"}}",
+          "height": 320,
+          "width": 460
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -240,
+          -280
+        ],
+        "id": "2233fba7-f96e-4814-aff1-2597895302e1",
+        "name": "Sticky Note3"
+      }
+    ],
+    "connections": {
+      "얻은 인증 코드로 n8n 노드 설정": {
+        "main": [
+          [
+            {
+              "node": "메시지 전송을 위한 HTTP Request",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "메시지 전송을 위한 HTTP Request": {
+        "main": [
+          []
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "templateCredsSetupCompleted": true,
+      "instanceId": "b395b83c10e64bbc4b1a2e8688754007444b807a526ee22d57e9906f51f8ff53"
+    }
+  }
