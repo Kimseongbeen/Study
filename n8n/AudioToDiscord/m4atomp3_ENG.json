@@ -1,0 +1,498 @@
+{
+    "nodes": [
+      {
+        "parameters": {
+          "content": "## AI Agent\nFinding out what to do on the Internet one by one with the content extracted from the summary",
+          "height": 229.03442905060058,
+          "width": 374.62927597730464,
+          "color": 5
+        },
+        "id": "958abbe3-89fe-4cef-9af1-81eb2cccc0ee",
+        "name": "Sticky Note",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          580,
+          160
+        ]
+      },
+      {
+        "parameters": {
+          "toolDescription": "=Search Google using SerpAPI",
+          "url": "https://serpapi.com/search",
+          "sendQuery": true,
+          "parametersQuery": {
+            "values": [
+              {
+                "name": "api_key",
+                "valueProvider": "fieldValue",
+                "value": "insert your serpapi key"
+              },
+              {
+                "name": "q"
+              }
+            ]
+          }
+        },
+        "id": "ef0e100f-78c0-4582-8e97-591f44ab15a5",
+        "name": "HTTP Request",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "typeVersion": 1.1,
+        "position": [
+          720,
+          520
+        ]
+      },
+      {
+        "parameters": {
+          "model": "gpt-4o-2024-08-06",
+          "options": {}
+        },
+        "id": "85ce51c1-b550-4d10-8019-97aad6660ddc",
+        "name": "OpenAI Chat Model",
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "typeVersion": 1,
+        "position": [
+          600,
+          520
+        ]
+      },
+      {
+        "parameters": {
+          "model": "gpt-4o-2024-08-06",
+          "options": {
+            "temperature": 0.2,
+            "timeout": 10000
+          }
+        },
+        "id": "f90f6bf9-9528-4a19-8f4c-8a0edb24b6fa",
+        "name": "OpenAI Chat Model1",
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "typeVersion": 1,
+        "position": [
+          240,
+          520
+        ]
+      },
+      {
+        "parameters": {
+          "jsonSchemaExample": "[\n{\n\t\"title\": \"Youtube Title\",\n\t\"url\": \"https://youtube.com\"\n},\n  {\n\t\"title\": \"Youtube Title\",\n\t\"url\": \"https://youtube.com\"\n  },\n  {\n\t\"title\": \"Youtube Title\",\n\t\"url\": \"https://youtube.com\"\n}\n]\n"
+        },
+        "id": "b05a21c8-3f6d-4ab6-8863-0223435360f8",
+        "name": "Structured Output Parser",
+        "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+        "typeVersion": 1.2,
+        "position": [
+          860,
+          520
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## Google Drive\n\nIn this example, we are using Google Drive.\nAs soon as the audio file is uploaded, the trigger starts and the audio file is downloaded.",
+          "height": 425.9351190986499,
+          "width": 560.9663444875257
+        },
+        "id": "3d1bbad9-174b-4bd0-b39d-f9b2c0dd388d",
+        "name": "Sticky Note3",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -560,
+          -120
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "pollTimes": {
+            "item": [
+              {
+                "mode": "everyMinute"
+              }
+            ]
+          },
+          "triggerOn": "specificFolder",
+          "folderToWatch": {
+            "__rl": true,
+            "mode": "list",
+            "value": ""
+          },
+          "event": "fileUpdated",
+          "options": {}
+        },
+        "id": "91c11ee8-175f-4c4e-be92-91eecad0b8c8",
+        "name": "Google Drive Trigger",
+        "type": "n8n-nodes-base.googleDriveTrigger",
+        "position": [
+          -520,
+          20
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "content": "## Summarization Chain\n",
+          "height": 229.03442905060058,
+          "width": 374.62927597730464,
+          "color": 4
+        },
+        "id": "31fc3475-6a09-4edb-a92b-1c1b6f447c1b",
+        "name": "Sticky Note1",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          140,
+          -120
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## Information Extractor\nWhen the AI Agent is Googling through the Google search API, all the text can be searched, so divide it.",
+          "height": 229.03442905060058,
+          "width": 383.3926198783395,
+          "color": 5
+        },
+        "id": "7d77d1c3-547e-44ad-903c-8a4cf041514b",
+        "name": "Sticky Note5",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          160,
+          160
+        ]
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "=Google related YouTube videos based on tags and search terms, and list only 3 url in order of relevance. However, search only once and search in English.\n\ntags :  {{ $json.output.tags }}\nsearch_terms: {{ $json.output.search_terms }}",
+          "hasOutputParser": true,
+          "options": {}
+        },
+        "id": "c5dd01cd-8a88-427f-8037-02fd98c59fec",
+        "name": "AI Agent",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 1.6,
+        "position": [
+          620,
+          260
+        ]
+      },
+      {
+        "parameters": {
+          "operation": "download",
+          "fileId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "={{ $json.id }}"
+          },
+          "options": {
+            "binaryPropertyName": "data",
+            "fileName": "={{ $json.originalFilename }}"
+          }
+        },
+        "id": "a61683a8-aa5d-44d8-bfd2-83ea4f36c46c",
+        "name": "Google Drive",
+        "type": "n8n-nodes-base.googleDrive",
+        "position": [
+          -380,
+          20
+        ],
+        "typeVersion": 3
+      },
+      {
+        "parameters": {
+          "text": "={{ $json.text }}",
+          "attributes": {
+            "attributes": [
+              {
+                "name": "tags",
+                "description": "Tags that can be fetched from the transcript",
+                "required": true
+              },
+              {
+                "name": "search_terms",
+                "description": "The multiple search terms that can be used for  searching related contents",
+                "required": true
+              }
+            ]
+          },
+          "options": {
+            "systemPromptTemplate": "You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value."
+          }
+        },
+        "id": "c424d656-ca58-4139-92a7-0c95672baa31",
+        "name": "Information Extractor",
+        "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+        "typeVersion": 1,
+        "position": [
+          200,
+          260
+        ]
+      },
+      {
+        "parameters": {
+          "operation": "move",
+          "fileId": {
+            "__rl": true,
+            "value": "={{ $('Google Drive').item.json.id }}",
+            "mode": "id"
+          },
+          "driveId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "My Drive"
+          },
+          "folderId": {
+            "__rl": true,
+            "value": "1TDjnkWNw-5A2C3hqWpjwH9MiMI-jKiWA",
+            "mode": "list",
+            "cachedResultName": "처리한 오디오",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1TDjnkWNw-5A2C3hqWpjwH9MiMI-jKiWA"
+          }
+        },
+        "id": "59d53e4f-55d9-4b10-bd48-0725b7fe9579",
+        "name": "Google Drive1",
+        "type": "n8n-nodes-base.googleDrive",
+        "position": [
+          -80,
+          400
+        ],
+        "typeVersion": 3,
+        "alwaysOutputData": false,
+        "executeOnce": false,
+        "retryOnFail": false,
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.openai.com/v1/audio/transcriptions",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {open ai key}"
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "multipart-form-data",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "model",
+                "value": "whisper-1"
+              },
+              {
+                "parameterType": "formBinaryData",
+                "name": "file",
+                "inputDataFieldName": "data"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "name": "Whisper2",
+        "type": "n8n-nodes-base.httpRequest",
+        "position": [
+          -200,
+          60
+        ],
+        "id": "0787d081-167d-4912-8b01-46d1fd90f257",
+        "typeVersion": 4.2
+      },
+      {
+        "parameters": {
+          "mode": "combine",
+          "combineBy": "combineByPosition",
+          "options": {}
+        },
+        "id": "e2dd6f30-b73b-46e8-b2bc-5726a124e084",
+        "name": "Merge",
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3,
+        "position": [
+          900,
+          0
+        ],
+        "alwaysOutputData": false
+      },
+      {
+        "parameters": {
+          "options": {
+            "summarizationMethodAndPrompts": {
+              "values": {
+                "prompt": "Write a concise summary of the following in korean:\n\n\n\"{text}\"\n\n\nCONCISE SUMMARY:\n\n아래와 같은 형식으로 요약해줘\n1. 회의 내용 요약\n2. 회의록을 기반으로 완료한 내용, 해야할 항목들 나열"
+              }
+            }
+          }
+        },
+        "id": "f39bbc15-ca38-44b0-9e1b-230e612ae1de",
+        "name": "Summarization Chain",
+        "type": "@n8n/n8n-nodes-langchain.chainSummarization",
+        "typeVersion": 2,
+        "position": [
+          200,
+          -20
+        ]
+      },
+      {
+        "parameters": {
+          "authentication": "webhook",
+          "content": "=😎 the contents of the meeting\n\n {{ $json.response.text }}\n\n👍 Related YouTube Video\n\n1️⃣ {{ $json.output[0].title }}\n  {{ $json.output[0].url }}\n\n2️⃣ {{ $json.output[1].title }}\n{{ $json.output[1].url }}\n\n3️⃣ {{ $json.output[2].title }}\n{{ $json.output[2].url }}",
+          "options": {}
+        },
+        "id": "f7bb222a-8114-40eb-b48b-7a14f9902843",
+        "name": "discord message",
+        "type": "n8n-nodes-base.discord",
+        "typeVersion": 2,
+        "position": [
+          1100,
+          0
+        ]
+      }
+    ],
+    "connections": {
+      "HTTP Request": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "OpenAI Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Summarization Chain",
+              "type": "ai_languageModel",
+              "index": 0
+            },
+            {
+              "node": "AI Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "OpenAI Chat Model1": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Information Extractor",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Structured Output Parser": {
+        "ai_outputParser": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_outputParser",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Drive Trigger": {
+        "main": [
+          [
+            {
+              "node": "Google Drive",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Google Drive": {
+        "main": [
+          [
+            {
+              "node": "Whisper2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Information Extractor": {
+        "main": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Whisper2": {
+        "main": [
+          [
+            {
+              "node": "Information Extractor",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Summarization Chain",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Google Drive1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge": {
+        "main": [
+          [
+            {
+              "node": "discord message",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Summarization Chain": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "instanceId": "b395b83c10e64bbc4b1a2e8688754007444b807a526ee22d57e9906f51f8ff53"
+    }
+  }
