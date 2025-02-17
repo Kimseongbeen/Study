@@ -1,0 +1,105 @@
+{
+    "nodes": [
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://kauth.kakao.com/oauth/token",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Content-Type",
+                "value": "application/x-www-form-urlencoded;charset=utf-8"
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "form-urlencoded",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "grant_type",
+                "value": "authorization_code"
+              },
+              {
+                "name": "client_id",
+                "value": "REST API KEY"
+              },
+              {
+                "name": "redirect_uri",
+                "value": "https://localhost:3000"
+              },
+              {
+                "name": "code",
+                "value": "인가 코드"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -300,
+          180
+        ],
+        "id": "173d52f3-620b-4244-96ed-d05a075d1ae3",
+        "name": "엑세스 토큰 받기"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://kapi.kakao.com/v2/api/talk/memo/default/send",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Authorization",
+                "value": "=Bearer {{ $json.access_token }}"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/x-www-form-urlencoded;charset=utf-8"
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "form-urlencoded",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "template_object",
+                "value": "={\n        \"object_type\": \"calendar\",\n        \"content\": {\n            \"title\": \"일정 제목\",\n            \"description\": \"일정 설명\",\n            \"image_url\": \"https://developers.kakao.com/static/images/pc/txt_visual1.png\",\n            \"link\": {\n                \"web_url\":\"https://kakao.com\"\n            }\n        },\n        \"buttons\": [\n            {\n                \"title\": \"일정 정보 보기\",\n                \"link\": {\n                    \"web_url\": \"https://developers.kakao.com\",\n                    \"mobile_web_url\": \"https://developers.kakao.com/mobile\"\n                }\n            }\n        ],\n        \"id_type\": \"event\",\n        \"id\": \"6351f57c7ec8e318d0b809a0\"\n    }"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -120,
+          180
+        ],
+        "id": "a745231d-48c8-4551-8c38-6728654b6f51",
+        "name": "나에게 보내기 노드"
+      }
+    ],
+    "connections": {
+      "엑세스 토큰 받기": {
+        "main": [
+          [
+            {
+              "node": "나에게 보내기 노드",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "instanceId": "b395b83c10e64bbc4b1a2e8688754007444b807a526ee22d57e9906f51f8ff53"
+    }
+  }
