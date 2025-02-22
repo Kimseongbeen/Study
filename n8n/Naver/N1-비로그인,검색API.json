@@ -1,0 +1,80 @@
+{
+    "nodes": [
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          0,
+          0
+        ],
+        "id": "654e3c4b-280b-438e-8c33-5cdfe869497b",
+        "name": "When clicking ‘Test workflow’"
+      },
+      {
+        "parameters": {
+          "url": "https://openapi.naver.com/v1/search/blog.json",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "query",
+                "value": "감자"
+              },
+              {
+                "name": "display",
+                "value": "100"
+              },
+              {
+                "name": "start",
+                "value": "1000"
+              },
+              {
+                "name": "sort",
+                "value": "date"
+              }
+            ]
+          },
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "X-Naver-Client-Id",
+                "value": "id"
+              },
+              {
+                "name": "X-Naver-Client-Secret",
+                "value": "secret"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          220,
+          0
+        ],
+        "id": "91971c8b-9f9e-440a-b26b-512ec0f46956",
+        "name": "HTTP Request"
+      }
+    ],
+    "connections": {
+      "When clicking ‘Test workflow’": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "instanceId": "b395b83c10e64bbc4b1a2e8688754007444b807a526ee22d57e9906f51f8ff53"
+    }
+  }
